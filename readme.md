@@ -11,4 +11,9 @@ Then edit file:
 and add the following line to the end of the file:
 
     Libraries::add('li3_users');
-  
+Last step is to configure li3_users to connect to the database.  Edit file:
+
+    libraries\li3_users\config\bootstrap\connections.php
+    
+and edit Connections:add command to match up with your database.
+
