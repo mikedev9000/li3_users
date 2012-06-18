@@ -27,6 +27,7 @@ class UsersController extends \lithium\action\Controller {
 	}
 
 	public function login() {
+		$this->_render['library'] = 'li3_users';
 		$return = null;
 		if (!empty($this->request->params['return'])) {
 			$return = $this->request->params['return'];
@@ -75,6 +76,7 @@ class UsersController extends \lithium\action\Controller {
 	}
 
 	public function register() {
+		$this->_render['library'] = 'li3_users';
 		$errors = false;
 		if (!empty($this->request->data)) {
 			$user = User::create($this->request->data);
@@ -83,7 +85,8 @@ class UsersController extends \lithium\action\Controller {
 				Session::write('attempts', 0, array('name' => 'cooldown'));
 				$this->redirect(array(
 					'controller' => 'users', 'action' => 'view',
-					'args' => array($user->_id)
+					'args' => array($user->_id),
+					'library' => 'li3_users'
 				));
 			} else {
 				$errors = $user->errors();

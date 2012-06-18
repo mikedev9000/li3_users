@@ -10,7 +10,7 @@ use lithium\data\Connections;
 
 Connections::add('li3_users', array(
 	'adapter' => 'MongoDb',
-	'host' => 'localhost',
+	'host' => '192.168.1.250',
 	'database' => 'li3_users'
 ));
 
