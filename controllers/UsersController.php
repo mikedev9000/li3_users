@@ -21,8 +21,9 @@ class UsersController extends \lithium\action\Controller {
 	 */
 	protected $_cooldown = 6;
 	
-	function __construct() {
+	function __construct( array $config = array() ) {
 		$this->_render['library'] = 'li3_users';
+		parent::__construct($config);
 	}
 	
 	public function index() {
