@@ -20,14 +20,18 @@ class UsersController extends \lithium\action\Controller {
 	 * Max number of login attempts before cooldown
 	 */
 	protected $_cooldown = 6;
-
+	
+	function __construct() {
+		$this->_render['library'] = 'li3_users';
+	}
+	
 	public function index() {
 		$users = User::all();
 		return compact('users');
 	}
 
 	public function login() {
-		$this->_render['library'] = 'li3_users';
+		
 		$return = null;
 		if (!empty($this->request->params['return'])) {
 			$return = $this->request->params['return'];
@@ -69,14 +73,13 @@ class UsersController extends \lithium\action\Controller {
 		Auth::clear('user');
 		$this->redirect(array('action' => 'login'));
 	}
-
+	
 	public function view($_id = null) {
 		$user = User::find($_id);
 		return compact('user');
 	}
 
 	public function register() {
-		$this->_render['library'] = 'li3_users';
 		$errors = false;
 		if (!empty($this->request->data)) {
 			$user = User::create($this->request->data);
@@ -85,8 +88,7 @@ class UsersController extends \lithium\action\Controller {
 				Session::write('attempts', 0, array('name' => 'cooldown'));
 				$this->redirect(array(
 					'controller' => 'users', 'action' => 'view',
-					'args' => array($user->_id),
-					'library' => 'li3_users'
+					'args' => array($user->_id)
 				));
 			} else {
 				$errors = $user->errors();
